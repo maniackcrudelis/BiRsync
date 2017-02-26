@@ -1,0 +1,67 @@
+#!/bin/bash
+exit
+# Ce n'est pas un script bash, mais ça permet une coloration syntaxique automatique plus pratique avec un éditeur de texte avancé ;)
+
+###
+#   Liste de synchronisation pour le script rsync
+###
+
+
+## Dossier de travail et dossier d'archives en fonction de la machine cliente
+# Nom de la machine (taper hostname dans un terminal pour connaître le nom de la machine).
+# ALL doit toujours être renseigné, il concernera toute machine qui n'est pas explicitement référencée.
+# >MACHINE: ALL
+
+# Le dossier de travail est le dossier qui contiendra les fichiers de travail du script, ainsi que le script birsync.sh lui-même. Le dossier de travail est spécifique à la machine spécifiée.
+# >WORK_DIR:/media/DOSSIER/DE TRAVAIL
+
+# Le dossier des archives contient tout les fichiers modifiés lors de la synchronisation sur le poste local. Son emplacement peut être défini pour chaque machine.
+# Le dossier de backup peut être relatif au dossier de travail en utilisant la variable $WORK_DIR
+# >BACKUP:$WORK_DIR/Dossier d'archive
+
+# Machine ALL:
+>MACHINE: ALL
+>WORK_DIR:/media/DOCUMENTS/test_sync/sync
+>BACKUP:$WORK_DIR/backup_rsync
+
+# Machine supplémentaire:
+>MACHINE:hernnon-netbook
+>WORK_DIR:/media/DOCUMENTS/test_sync_sha/sync
+>BACKUP:$WORK_DIR/backup_rsync
+
+
+
+
+## Liste des fichiers et/ou dossiers à synchroniser en fonction de la machine cliente
+# Machine cliente:
+#>MACHINE_SYNC:ALL
+
+# Dossier ou fichier à synchroniser:
+#>SYNC:/media/DOSSIER/A SYNCHRONISER
+
+# Nom du dossier sur le serveur
+# Le nom du dossier est relatif à l'emplacement des dossiers de synchronisation, tel que défini dans le script par 'SYNC_DIR'. Ce champs ne doit être utilisé que pour donner un nom différent au dossier sur le serveur.
+# Indiquer = pour que le dossier garde le même nom sur le serveur.
+#>DOSSIER_DISTANT:=
+
+# Fichiers ou dossiers à exclure de la synchronisation pour ce dossier.
+# Les fichiers ou dossiers à exclure doivent être indiquer par leur chemin relatif au dossier concerné.
+#>EXCLUSION:/fichier à exclure
+#>EXCLUSION:Un autre fichier à exclure
+#>EXCLUSION:Un sous dossier/à exclure
+
+# Il est possible de forcer la mise à jour à partir des fichiers locaux, >FORCE:Local ou à partir des fichiers distants, >FORCE:Distant
+# La commande de forçage doit être ajoutée à la suite du bloc du dossier concerné.
+
+>MACHINE_SYNC:ALL
+>SYNC:/media/DOCUMENTS/test_sync/SUBLET
+>DOSSIER_DISTANT:=
+>EXCLUSION:PHOTOS
+>EXCLUSION:Analyse comparative
+>FORCE:Local
+
+>MACHINE_SYNC:hernnon-netbook
+>SYNC:/media/DOCUMENTS/test_sync_sha/SUBLET
+>DOSSIER_DISTANT:=
+>EXCLUSION:PHOTOS
+>EXCLUSION:Analyse comparative
